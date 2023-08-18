@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const { errorMessages } = require('../constants');
 
 const movieSchema = new mongoose.Schema(
   {
@@ -30,7 +31,7 @@ const movieSchema = new mongoose.Schema(
       match: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/,
       validate: {
         validator: (v) => validator.isURL(v),
-        message: 'Проверьте правильность введенного URL',
+        message: errorMessages.CHECK_URL,
       },
     },
     trailerLink: {
@@ -39,7 +40,7 @@ const movieSchema = new mongoose.Schema(
       match: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/,
       validate: {
         validator: (v) => validator.isURL(v),
-        message: 'Проверьте правильность введенного URL',
+        message: errorMessages.CHECK_URL,
       },
     },
     thumbnail: {
@@ -48,7 +49,7 @@ const movieSchema = new mongoose.Schema(
       match: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/,
       validate: {
         validator: (v) => validator.isURL(v),
-        message: 'Проверьте правильность введенного URL',
+        message: errorMessages.CHECK_URL,
       },
     },
     owner: {

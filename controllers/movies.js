@@ -1,6 +1,5 @@
 const Movie = require('../models/movie');
-const { customErrors } = require('../constants');
-const { methodCodes } = require('../constants');
+const { customErrors, methodCodes, errorMessages } = require('../constants');
 
 module.exports.createMovie = (req, res, next) => {
   const {
@@ -38,7 +37,8 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.getMovies = (req, res, next) => {
-  Movie.find({})
+  const { _id } = req.user;
+  Movie.find({ owner: _id })
     .then((movies) => res.send({ data: movies }))
     .catch(next);
 };
@@ -49,7 +49,7 @@ module.exports.deleteMovie = (req, res, next) => {
 
   Movie.findById(id)
     .then((movie) => {
-      if (!movie) return next(new customErrors.NotFound('Карточка не найдена'));
+      if (!movie) return next(new customErrors.NotFound(errorMessages.CARD_NOT_FOUND));
 
       if (movie?.owner._id.toString() === _id) {
         return Movie.findByIdAndRemove(id)
@@ -59,7 +59,7 @@ module.exports.deleteMovie = (req, res, next) => {
           .catch(next);
       }
 
-      throw new customErrors.ForbiddenError('Недостаточно прав');
+      throw new customErrors.ForbiddenError(errorMessages.NO_AUTHORITY);
     })
     .catch(next);
 };

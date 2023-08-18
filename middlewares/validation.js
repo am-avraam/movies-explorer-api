@@ -19,12 +19,6 @@ const loginValidation = celebrate({
   }),
 });
 
-// const searchValidation = celebrate({
-//   params: Joi.object().keys({
-//     id: Joi.string().length(24).hex().required(),
-//   }),
-// });
-
 const patchUserValidation = celebrate({
   body: Joi.object().keys({
     email: Joi.string().email().pattern(emailPattern),
@@ -44,7 +38,6 @@ const createMovieValidation = celebrate({
     image: Joi.string().pattern(linkPattern).required(),
     trailerLink: Joi.string().pattern(linkPattern).required(),
     thumbnail: Joi.string().pattern(linkPattern).required(),
-    // owner: Joi.string().length(24).hex().required(),
     /** Понять формат id, доработать */
     movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
